@@ -14,6 +14,7 @@ namespace FALLBACKFONT9;
 [BepInPlugin(MyPluginInfo.PLUGIN_GUID, MyPluginInfo.PLUGIN_NAME, MyPluginInfo.PLUGIN_VERSION)]
 public class Plugin : BaseUnityPlugin
 {
+    internal static TMP_FontAsset? fallbackAsset;
     internal static new ManualLogSource Logger { get; private set; } = null!;
 
     private void Awake()
@@ -22,11 +23,11 @@ public class Plugin : BaseUnityPlugin
         Logger = base.Logger;
         Logger.LogInfo($"Plugin {MyPluginInfo.PLUGIN_GUID} is loaded!");
         gameObject.hideFlags = HideFlags.DontSaveInEditor;
-
-        foreach (var m in typeof(TMP_FontAsset).GetMethods(
-        BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance))
-        if (m.Name.Contains("TryAdd"))
-            Debug.Log($"{m.Name}({string.Join(", ", Array.ConvertAll(m.GetParameters(), p => p.ParameterType.Name + " " + p.Name))})");
+        
+        var pluginDir = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+        fallbackAsset = FontLoader.CreateFontAssetFromFile(
+            Path.Combine(pluginDir, "font.otf")
+        );
 
         new Harmony(MyPluginInfo.PLUGIN_GUID).PatchAll();
 
@@ -56,23 +57,11 @@ public class Plugin : BaseUnityPlugin
     
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        var pluginDir = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+        AddFallbackFont();
+    }
 
-        // 先找目标字体获取 pointSize
-        TMP_FontAsset targetFont = null;
-        foreach (var fa in Resources.FindObjectsOfTypeAll<TMP_FontAsset>())
-            if (fa.name == "fs-tahoma-8px-v2 SDF")
-            {
-                targetFont = fa;
-                Plugin.Logger.LogInfo($"Target font pointSize: {fa.faceInfo.pointSize}, lineHeight: {fa.faceInfo.lineHeight}");
-                break;
-            }
-
-        var fallbackAsset = FontLoader.CreateFontAssetFromFile(
-            Path.Combine(pluginDir, "font.otf"),
-            samplingPointSize: targetFont != null ? (int)targetFont.faceInfo.pointSize : 16
-        );
-
+    private void AddFallbackFont()
+    {
         if (fallbackAsset == null) return;
 
         Plugin.Logger.LogInfo($"Fallback pointSize: {fallbackAsset.faceInfo.pointSize}, lineHeight: {fallbackAsset.faceInfo.lineHeight}");

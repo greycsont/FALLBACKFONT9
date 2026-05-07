@@ -7,6 +7,7 @@ using System;
 using TMPro;
 using System.IO;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine.SceneManagement;
 
 namespace FALLBACKFONT9;
@@ -14,7 +15,7 @@ namespace FALLBACKFONT9;
 [BepInPlugin(MyPluginInfo.PLUGIN_GUID, MyPluginInfo.PLUGIN_NAME, MyPluginInfo.PLUGIN_VERSION)]
 public class Plugin : BaseUnityPlugin
 {
-    internal static TMP_FontAsset? fallbackAsset;
+    internal static List<TMP_FontAsset> fonts = new();
     internal static new ManualLogSource Logger { get; private set; } = null!;
 
     private void Awake()
@@ -23,11 +24,20 @@ public class Plugin : BaseUnityPlugin
         Logger = base.Logger;
         Logger.LogInfo($"Plugin {MyPluginInfo.PLUGIN_GUID} is loaded!");
         gameObject.hideFlags = HideFlags.DontSaveInEditor;
-        
+
         var pluginDir = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
-        fallbackAsset = FontLoader.CreateFontAssetFromFile(
-            Path.Combine(pluginDir, "font.otf")
-        );
+        var fontExtensions = new[] { "*.otf", "*.ttf" };
+        var fontFiles = fontExtensions.SelectMany(ext => Directory.GetFiles(pluginDir, "font" + ext))
+                                      .OrderBy(f => Path.GetFileName(f));
+        foreach (var file in fontFiles)
+        {
+            var fontAsset = FontLoader.CreateFontAssetFromFile(file);
+            if (fontAsset != null)
+            {
+                fonts.Add(fontAsset);
+                Logger.LogInfo($"Loaded font: {Path.GetFileName(file)}");
+            }
+        }
 
         new Harmony(MyPluginInfo.PLUGIN_GUID).PatchAll();
 
@@ -62,16 +72,15 @@ public class Plugin : BaseUnityPlugin
 
     private void AddFallbackFont()
     {
-        if (fallbackAsset == null) return;
-
-        Plugin.Logger.LogInfo($"Fallback pointSize: {fallbackAsset.faceInfo.pointSize}, lineHeight: {fallbackAsset.faceInfo.lineHeight}");
+        if (fonts.Count == 0) return;
 
         foreach (var fontAsset in Resources.FindObjectsOfTypeAll<TMP_FontAsset>())
         {
             fontAsset.fallbackFontAssetTable ??= new List<TMP_FontAsset>();
-            if (!fontAsset.fallbackFontAssetTable.Contains(fallbackAsset))
+            if (!fontAsset.fallbackFontAssetTable.Contains(fonts[0]))
             {
-                fontAsset.fallbackFontAssetTable.Add(fallbackAsset);
+                foreach (var f in fonts)
+                    fontAsset.fallbackFontAssetTable.Add(f);
                 Plugin.Logger.LogInfo($"Added fallback to {fontAsset.name}");
             }
         }

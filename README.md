@@ -8,6 +8,8 @@ The main use is to render the characters in cybergrind terminal's custom music n
 
 Here's an example:
 
+btw it seems like base game's fonts all supports russian
+
 Before:
 
 
@@ -23,11 +25,15 @@ ref:
 
   ![UnityNull](https://raw.githubusercontent.com/greycsont/FALLBACKFONT9/master/docs/UnityNull.png)
 
-- OSU!: https://github.com/ppy/osu
+  ![TestCode](https://raw.githubusercontent.com/greycsont/FALLBACKFONT9/master/docs/TestCode.png)
+  
+  ![ConsoleOutput](https://raw.githubusercontent.com/greycsont/FALLBACKFONT9/master/docs/ConsoleOutput.png)
+
+- OSU!: https://github.com/ppy/osu (God the UI/UX was gorgeous)
 
   ![osu](https://raw.githubusercontent.com/greycsont/FALLBACKFONT9/master/docs/osu.png)
 
-- Battlefield 4: fuck you ea
+- Battlefield 4: Fuck you EA
 
   ![bf4](https://raw.githubusercontent.com/greycsont/FALLBACKFONT9/master/docs/bf4.jpg)
 

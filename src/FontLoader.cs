@@ -58,7 +58,7 @@ public static class FontLoader
         var faceInfo = s_getFaceInfo.Invoke(null, null);
 
         var familyName = faceInfo.GetType().GetProperty("familyName")?.GetValue(faceInfo);
-        Plugin.Logger.LogInfo($"FaceInfo familyName: {familyName}, pointSize: {samplingPointSize}");
+        Debug.Log($"FaceInfo familyName: {familyName}, pointSize: {samplingPointSize}");
 
         var fontAsset = ScriptableObject.CreateInstance<TMP_FontAsset>();
 
@@ -112,7 +112,14 @@ public static class FontLoader
         s_initDictLookup?.Invoke(fontAsset, null);
         s_addSynthesized?.Invoke(fontAsset, null);
 
+        var font = CreateFontFromFile(path);
+        s_tmpFontAssetType.GetField("m_SourceFontFile", s_flags).SetValue(fontAsset, font);
 
+        return fontAsset;
+    }
+
+    public static Font CreateFontFromFile(string path)
+    {
         // [Error  : Unity Log] MethodAccessException: Method `UnityEngine.Font.Internal_CreateFontFromPath(UnityEngine.Font,string)' 
         // is inaccessible from method `FontLoader.CreateFontAssetFromFile(string,int,int,int,int)'
         var internalCreateFromPath = typeof(Font).GetMethod(
@@ -126,9 +133,8 @@ public static class FontLoader
             .GetUninitializedObject(typeof(Font));
 
         internalCreateFromPath.Invoke(null, new object[] { font, path });
-        s_tmpFontAssetType.GetField("m_SourceFontFile", s_flags).SetValue(fontAsset, font);
 
-        return fontAsset;
+        return font;
     }
 }
 /*

@@ -28,7 +28,10 @@ public class Plugin : BaseUnityPlugin
         var pluginDir = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
         var fontExtensions = new[] { "*.otf", "*.ttf" };
         var fontFiles = fontExtensions.SelectMany(ext => Directory.GetFiles(pluginDir, "font" + ext))
-                                      .OrderBy(f => Path.GetFileName(f));
+                                      .OrderBy(f => {
+                                          var stem = Path.GetFileNameWithoutExtension(f);
+                                          return int.TryParse(stem["font".Length..], out int n) ? n : int.MaxValue;
+                                      });
         foreach (var file in fontFiles)
         {
             var fontAsset = FontLoader.CreateFontAssetFromFile(file);

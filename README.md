@@ -10,15 +10,15 @@ Here's an example:
 
 Before:
 
-![CGBefore](https://raw.githubusercontent.com/greycsont/Fffffff/master/docs/CGBefore.png)
+![CGBefore](https://raw.githubusercontent.com/greycsont/Fffffff/master/docs/CGBefore.jpg)
 
 After:
 
-![CGAfter](https://raw.githubusercontent.com/greycsont/Fffffff/master/docs/CGAfter.png)
+![CGAfter](https://raw.githubusercontent.com/greycsont/Fffffff/master/docs/CGAfter.jpg)
 
 btw it seems like base game's fonts all supports russian, includes VCR OSD MONO
 
-![UITest](https://raw.githubusercontent.com/greycsont/Fffffff/master/docs/UITest.png)
+![UITest](https://raw.githubusercontent.com/greycsont/Fffffff/master/docs/UItest.png)
 
 ## Customization
 the package includes 2 font by default: fusion-pixel-font and unifont, named font1.otf and font2.otf

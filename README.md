@@ -23,7 +23,7 @@ btw it seems like base game's fonts all supports russian, includes VCR OSD MONO
 ## Customization
 the package includes 2 font by default: 
 
-- fusion-pixel-font https://github.com/TakWolf/fusion-pixel-font used under SIL OFL version 1.1
+- fusion-pixel-font-10px-monospaced-zh_hans https://github.com/TakWolf/fusion-pixel-font used under SIL OFL version 1.1
 
 - unifont https://www.unifoundry.com/unifont/index.html used under no I did't changed the font but it uses GPLv2+OFLv1.1 mixed license
 

@@ -25,7 +25,7 @@ the package includes 2 font by default:
 
 - fusion-pixel-font https://github.com/TakWolf/fusion-pixel-font used under SIL OFL version 1.1
 
-- unifont https://www.unifoundry.com/unifont/index.html used under no I don't changed the font but it uses GPLv2+OFLv1.1 mixed license
+- unifont https://www.unifoundry.com/unifont/index.html used under no I did't changed the font but it uses GPLv2+OFLv1.1 mixed license
 
 they renamed to font1.otf and font2.otf in package
 

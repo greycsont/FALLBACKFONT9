@@ -2,7 +2,7 @@
 A mod to add local (yes, local) font to TMP_FontAsset add it as the fallback font of game's font
 
 ## TL;DR
-Add support to render non-english character
+Add support to render characters missing from the ULTRAKILL's built-in fonts
 
 The main use of this is to render the characters in cybergrind terminal's custom music names
 

@@ -2,9 +2,9 @@
 A mod to add local (yes, local) font to TMP_FontAsset add it as the fallback font of game's font
 
 ## TL;DR
-Add support to render non-english character, mainly used on cybergrind's music terminal
+Add support to render non-english character
 
-The main use is to render the characters in cybergrind terminal's custom music names
+The main use of this is to render the characters in cybergrind terminal's custom music names
 
 Here's an example:
 

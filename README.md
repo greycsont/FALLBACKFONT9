@@ -21,11 +21,19 @@ btw it seems like base game's fonts all supports russian, includes VCR OSD MONO
 ![UITest](https://raw.githubusercontent.com/greycsont/Fffffff/master/docs/UItest.png)
 
 ## Customization
-the package includes 2 font by default: fusion-pixel-font and unifont, named font1.otf and font2.otf
+the package includes 2 font by default: 
+
+- fusion-pixel-font https://github.com/TakWolf/fusion-pixel-font used under SIL OFL version 1.1
+
+- unifont https://www.unifoundry.com/unifont/index.html used under no I don't changed the font but it uses GPLv2+OFLv1.1 mixed license
+
+they renamed to font1.otf and font2.otf in package
 
 if you want to add your own (?) font into the game, name the font as font(number).otf
 
-it will load the font from lowest number to greatest number, please don't using negative value or Cox-zucker machine
+it will load the font from lowest number to greatest number
+
+please don't using negative value or sth like epsilon and told to me it's a number, plz use non-negative integer
 
 ## Credit
 naming inspiration from: 

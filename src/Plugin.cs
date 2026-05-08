@@ -26,7 +26,7 @@ public class Plugin : BaseUnityPlugin
         gameObject.hideFlags = HideFlags.DontSaveInEditor;
 
         var pluginDir = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
-        var fontExtensions = new[] { "*.otf", "*.ttf" };
+        var fontExtensions = new[] { "*.otf", "*.ttc", "*.ttf" };
         var fontFiles = fontExtensions.SelectMany(ext => Directory.GetFiles(pluginDir, "font" + ext))
                                       .OrderBy(f => {
                                           var stem = Path.GetFileNameWithoutExtension(f);
